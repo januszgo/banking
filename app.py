@@ -30,6 +30,7 @@ def index():
         meta.create_all(eng)
         accounts.append(request.args.get('name'))
         accounts.sort()
+        
     print('Request for index page received')
     return render_template('index.html', accounts = accounts)
 
