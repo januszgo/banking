@@ -11,7 +11,7 @@
             <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/azure-icon.svg') }}" alt="Azure Logo" width="192" height="192"/>
             <h1 class="display-6 fw-bold text-primary">Azure Finance Management Pro</h1>            
           </div>
-        <form method="post" action="{{url_for('hello')}}">
+        <form method="post" action="{{url_for('view')}}">
             <div class="col-md-6 mx-auto text-center">
                 <label for="name" class="form-label fw-bold fs-5">Select existing account</label>
 
@@ -29,16 +29,32 @@
         </form>
         <form method="get" action="">
           <div class="col-md-6 mx-auto text-center">
-              <label for="name" class="form-label fw-bold fs-5">Create new account</label>
+              <label for="toCreate" class="form-label fw-bold fs-5">Create new account</label>
 
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
-                <input type="text" class="form-control" id="name" name="name" style="max-width: 256px;">
+                <input type="text" class="form-control" id="toCreate" name="toCreate" style="max-width: 256px;">
               </div>           
               <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
                 <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Register</button>
               </div>            
           </div>
         </form>
+        <form method="get" action="">
+          <div class="col-md-6 mx-auto text-center">
+              <label for="toDelete" class="form-label fw-bold fs-5">Delete account</label>
+
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+                  <select type="text" class="form-control" id="toDelete" name="toDelete" style="max-width: 256px;">
+                    {% for account in accounts %}
+                    <option value="{{account}}">{{account}}</option>
+                    {% endfor %}
+                  </select>
+                </div>            
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Delete</button>
+              </div>            
+          </div>
+      </form>
      </main>      
    </body>
 </html>
