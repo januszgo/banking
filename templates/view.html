@@ -1,0 +1,106 @@
+<!doctype html>
+<head>
+    <title>Hello Azure - Python Quickstart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<html>
+   <body>
+     <main>
+        <div class="px-4 py-3 my-2 text-center">
+          <h1 class="display-6 fw-bold">{{name}}
+          <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Log out</a></h1>
+        </div>
+        <form method="post" action="{{url_for('view')}}">
+          <div class="form-group">
+              <label for="income"  class="fs-5">Create new income</label>
+              <input type="text" id="row_name" name="row_name" style="max-width: 256px;" value="name">
+              <input type="number" id="income" name="income" style="max-width: 256px;" min="0" value="0.00" step="0.01">
+              <input type="hidden" id="name" name="name" value={{name}} />
+              <button type="submit"  class="fs-5">Add income</button>
+          </div>
+        </form>
+        <form method="post" action="{{url_for('view')}}">
+          <div class="form-group">
+              <label for="outcome"  class="fs-5">Create new spending</label>
+              <input type="text" id="row_name" name="row_name" style="max-width: 256px;" value="name">
+              <input type="number" id="outcome" name="outcome" style="max-width: 256px;" min="0" value="0.00" step="0.01">
+              <input type="hidden" id="name" name="name" value={{name}} />
+              <button type="submit"  class="fs-5">Add spending</button>
+          </div>
+        </form>
+        <form method="post" action="{{url_for('view')}}">
+          <div class="form-group">
+              <label for="transfer"  class="fs-5">Create new transfer</label>
+              <select type="text" class="fs-5" id="destination" name="destination" style="max-width: 256px;" value="name">
+                {% for account in accounts %}
+                <option value="{{account}}">{{account}}</option>
+                {% endfor %}
+              </select>
+              <input type="number" id="outcome" name="outcome" style="max-width: 256px;" min="0" value="0.00" step="0.01">
+              <input type="hidden" id="name" name="name" value={{name}} />
+              <button type="submit"  class="fs-5">Add transfer</button>
+          </div>
+        </form>
+          </div>
+          <div>
+            <p class="fs-5">
+              Rate PLNEUR {{plneur}} zł <br>
+              Total balance of incomes and spendings {{ "%.2f"|format(balance) }} zł {{ "%.2f"|format(balance*plneur) }} €
+            </p>
+          </div>
+          <div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">name</th>
+                  <th scope="col">zł</th>
+                  <th scope="col">€</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for r in res %}
+                {% if r[2]>0: %}
+                <tr style="background-color:green;">
+                {% endif %}
+                {% if r[2]<0: %}
+                <tr style="background-color:red;">
+                {% endif %}
+                {% if r[2]==0: %}
+                <tr>
+                {% endif %}
+                  <th scope="row">{{r[0]}}</thd>
+                  <td>{{r[1]}}</td>
+                  <td>{{ "%.2f"|format(r[2]) }}</td>
+                  <td>{{ "%.2f"|format(r[2]*plneur) }}</td>
+                  <td>
+                    <form method="post" action="{{url_for('edit')}}">
+                      <div class="form-group">
+                          <input type="hidden" id="accountName" name="accountName" value={{name}} />
+                          <input type="hidden" id="theId" name="theId" value={{r[0]}} />
+                          <input type="hidden" id="theName" name="theName" value={{r[1]}} />
+                          <input type="hidden" id="theValue" name="theValue" value={{r[2]}} />
+                          <button type="submit">Edit</button>
+                      </div>
+                    </form>
+                  </td>
+                  <td>
+                    <form method="post" action="{{url_for('view')}}">
+                      <div class="form-group">
+                          <input type="hidden" id="idToDelete" name="idToDelete" value={{r[0]}} />
+                          <input type="hidden" id="name" name="name" value={{name}} />
+                          <button type="submit">Delete</button>
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+     </main>      
+   </body>
+</html>

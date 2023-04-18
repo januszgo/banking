@@ -1,0 +1,31 @@
+<!doctype html>
+<head>
+    <title>Hello Azure - Python Quickstart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<html>
+   <body>
+     <main>
+        <div class="px-4 py-3 my-2 text-center">
+            <h1 class="display-6 fw-bold text-primary">Edit row</h1>
+            <form method="post" action="{{url_for('view')}}">
+                <div class="col-md-6 mx-auto text-center">
+                <input type="hidden" id="name" name="name" style="max-width: 256px;" value={{accountName}} />
+                <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Return to main view</button>
+                </div>    
+            </form>
+            <form method="post" action="{{url_for('view')}}">
+                <div class="col-md-6 mx-auto text-center">
+                    <label for="income"  class="fs-5">id: {{theId}}</label><br>
+                    <input type="hidden" id="editedId" name="editedId" style="max-width: 256px;" value={{theId}} /><br>
+                    <input type="text" id="newName" name="newName" style="max-width: 256px;" value={{theName}} /><br>
+                    <input type="number" id="newValue" name="newValue" style="max-width: 256px;" value={{theValue}} step="0.01" /><br>
+                    <input type="hidden" id="name" name="name" style="max-width: 256px;" value={{accountName}} /><br>
+                    <button type="submit"  class="fs-5">Save</button>
+                </div>
+            </form>
+        </div>
+     </main>      
+   </body>
+</html>
